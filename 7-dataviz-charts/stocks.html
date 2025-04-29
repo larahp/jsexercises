@@ -87,6 +87,7 @@
             <option value="AAPL">Apple (AAPL)</option>
             <option value="NFLX">Netflix (NFLX)</option>
             <option value="SPOT">Spotify (SPOT)</option>
+            <option value="NVDA">Nvidia (NVDA)</option>
         </select>
     </div>
 
@@ -133,8 +134,7 @@
 
 
         // SELECTORS
-        // TODO
-
+        var stockSelector = document.getElementById("stock-selector")
 
 
         // FUNCTION DEFINITION
@@ -154,7 +154,7 @@
                 console.log("PART 1...")
 
 
-
+                console.log("NUMBER OF DAYS:", data.length)
 
 
                 console.log("---------------------")
@@ -171,10 +171,10 @@
         }
 
         // trigger an initial chart update when the page loads:
-        //TODO
+        updateDashboard()
 
         // trigger a subsequent chart update whenever the dropdown option is selected:
-        //TODO
+       stockSelector.addEventListener("change", updateDashboard, false)
 
     </script>
 </body>
