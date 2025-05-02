@@ -41,66 +41,99 @@
 </p>
 
     <hr>
+    <!-- Reviewed JavaScript online toolkits and asked ChatGPT for help-->
     <h2>Part 3</h2>
     <p>Create your own HTML interface that will allow the user to run their own simulation as described in Part 2.
         The interface should allow the user to input values for the initial balance, desired ending balance, mean, and standard deviation.
         The interface should include a button, that when clicked should perform the simulation and
         and display the resulting number of years and actual ending balance on the page.
     </p>
-
+    <label>Initial Balance:</label>
+    <input id="input-initial" type="number" value="150000"><br><br>
+    
+    <label>Goal Balance:</label>
+    <input id="input-goal" type="number" value="1000000"><br><br>
+    
+    <label>Mean Return (decimal):</label>
+    <input id="input-mean" type="number" step="0.01" value="0.08"><br><br>
+    
+    <label>Standard Deviation (decimal):</label>
+    <input id="input-stddev" type="number" step="0.01" value="0.15"><br><br>
+    
+    <button id="run-simulation">Run Simulation</button>
+    
+    <p><strong>Result:</strong></p>
+    <p id="result-text">Waiting for result...</p>
 
 
     <script src="https://cdn.jsdelivr.net/npm/d3-random@3"></script>
     <script type="text/javascript">
 
-        function formatUSD(price) {
+function formatUSD(price) {
             return `$${price.toFixed(2)}`
         }
 
         console.log("---------------------")
         console.log("PART 1...")
-        
-        var balance = 150000
-        var year = 0
 
-        while(balance < 1000000){ 
-            // annual return
-            year = year + 1
-            balance = balance * 1.08
-           // console.log(year, balance) // for each year
+        var initialBalance = 150000
+        var balance = initialBalance
+        var years = 0
+
+        while(balance < 1000000){
+            balance = balance * 1.08 // ACCUMULATE THE BALANCE
+            years = years + 1
         }
-        console.log("DONE!")
-        console.log(year, balance) // after the loop has finished
+
+        console.log("INITIAL BALANCE:", formatUSD(initialBalance))
+        console.log("NUMBER OF YEARS:", years)
+        console.log("ENDING BALANCE:", formatUSD(balance))
 
 
 
         console.log("---------------------")
         console.log("PART 2...")
-       
-        var mean = 80
-        var standardDev = 5
-        var rateGenerator = d3.randomNormal(0.08, 0.15)
 
-        var balance = 150000
-        var year = 0
+        var rateGenerator = d3.randomNormal(0.08, 0.15) // mean=0.08, stddev=0.15
+        //console.log("EXAMPLE RATE:", rateGenerator())
 
-        while(balance < 1000000){ 
-            // annual return
-            var rate = rateGenerator ()
-            year = year + 1
-            balance = balance * (1 + rate)
-           // console.log(year, balance) // for each year
+        var initialBalance = 150000
+        var balance = initialBalance
+        var years = 0
+
+        while(balance < 1000000){
+            var rate = rateGenerator()
+            console.log(years, rate)
+            balance = balance * ( 1+ rate) // ACCUMULATE THE BALANCE
+            years = years + 1
         }
-        console.log("DONE!")
-        console.log(year, balance) // after the loop has finished
 
+        console.log("INITIAL BALANCE:", formatUSD(initialBalance))
+        console.log("NUMBER OF YEARS:", years)
+        console.log("ENDING BALANCE:", formatUSD(balance))
 
+// Reviewed online sources and asked ChatGPT for help // 
         console.log("---------------------")
         console.log("PART 3...")
+        document.getElementById("run-simulation").addEventListener("click", function() {
+    let initial = parseFloat(document.getElementById("input-initial").value);
+    let goal = parseFloat(document.getElementById("input-goal").value);
+    let mean = parseFloat(document.getElementById("input-mean").value);
+    let stddev = parseFloat(document.getElementById("input-stddev").value);
 
+    let balance = initial;
+    let years = 0;
+    let randomNormal = d3.randomNormal(mean, stddev);
 
+    while (balance < goal) {
+        let rate = randomNormal();
+        balance = balance * (1 + rate);
+        years++;
+    }
 
-
+    document.getElementById("result-text").innerText =
+        "It took " + years + " years to reach your goal.\nFinal balance: $" + balance.toFixed(2);
+});
     </script>
     </div>
 </body>
