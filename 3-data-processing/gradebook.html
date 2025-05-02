@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Gradebook</title>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-
+    <div class="container">
     <h1>Gradebook</h1>
-    <a href="../index.html">Home</a>
+    <a href="../index.html">Home</a> <br> <br>
 
     <h2>Part 1</h2>
     <p>
@@ -44,7 +45,7 @@
     <script src="https://d3js.org/d3-array.v2.min.js"></script>
     <script type="text/javascript">
 
-        var gradebook = {
+var gradebook = {
             "downloadDate": "2021-06-05",
             "professorId": 123,
             "students":[
@@ -63,40 +64,58 @@
 
         console.log("---------------------")
         console.log("PART 1...")
-        console.log("A)")
-        console.log(gradebook.downloadDate)
-        console.log(gradebook["downloadDate"])
+        console.log("DOWNLOAD DATE:", gradebook.downloadDate)
 
-        console.log("B)")
-        console.log(gradebook.students.length)
+        console.log("STUDENTS:", gradebook.students.length)
 
-        console.log("C)")
-       // gradebook.students.forEach(function(item){
-        //    console.log(item)
-        //})
-            gradebook.students.forEach(function(student){
-              console.log(student.name, student.finalGrade)
-            })
-        
-        console.log("D)")
-            
-        // var grades = [75,80,85,90,95,100]
-            var grades = gradebook.students.map(function(student){
-                return student.finalGrade
-            })
+        gradebook.students.forEach(function(student){
+            console.log(student.name, student.finalGrade)
+        })
 
-            console.log("GRADES:", grades)
+        var grades = gradebook.students.map(student => student.finalGrade)
+        console.log("FINAL GRADES", grades)
 
-        console.log("E)")
-        console.log("MEAN:", d3.mean(grades))
+        console.log(d3.mean(grades))
 
-        console.log("F)")
-        console.log("MEDIAN:", d3.mean(grades))
+        console.log(d3.median(grades))
 
         console.log("---------------------")
         console.log("PART 2...")
 
-    </script>
+        var table = document.getElementById("display-gradebook")
+        // Added table formatting with help from ChatGPT//
+        table.style.borderCollapse = "separate";
+        table.style.borderSpacing = "10px";
+        var headerRow = document.createElement("tr")
 
+        var headers = ["Student ID", "Student Name", "Final Grade"]
+        headers.forEach(function(headerText) {
+            var th = document.createElement("th")
+            //th.innerHTML = headerText
+            th.textContent = headerText
+            headerRow.appendChild(th)
+        })
+
+        table.appendChild(headerRow)
+
+        gradebook.students.forEach(function(student) {
+            var row = document.createElement("tr")
+
+            var cellId = document.createElement("td")
+            cellId.textContent = student.studentId
+            row.appendChild(cellId)
+
+            var cellName = document.createElement("td");
+            cellName.textContent = student.name
+            row.appendChild(cellName)
+
+            var cellGrade = document.createElement("td")
+            cellGrade.textContent = student.finalGrade.toFixed(1)  // Format to one decimal
+            row.appendChild(cellGrade)
+
+            table.appendChild(row)
+        });
+    </script>
+</div>
 </body>
 </html>
