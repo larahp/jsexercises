@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Temperature Conversion</title>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+    <div class="container">
     <h1>Temperature Conversion</h1>
-    <a href="../index.html">Home</a>
-
+    <a href="../index.html">Home</a> <br> <br>
+ 
     <h2>Part 1</h2>
     <p>
         The International Space Station periodically sends back temperature readings from space,
@@ -64,25 +66,41 @@
         console.log("---------------------")
         console.log("PART 1...")
 
-
-
+        var tempC = -270
+        console.log("TEMP C:", tempC)
+        var tempF = tempC * 9/5 + 32
+        console.log("TEMP F:", tempF)
 
 
         console.log("---------------------")
         console.log("PART 2...")
 
+        function convertTemp(c){
+            return c * 9/5 + 32
+        }
 
-
-
+        var tempC = -270
+        console.log("TEMP C:", tempC)
+        var tempF = convertTemp(tempC)
+        console.log("TEMP F:", tempF)
 
 
         console.log("---------------------")
         console.log("PART 3...")
 
+        var inputTempC = document.getElementById("input-temp-c")
+        var calcButton = document.getElementById("calculate")
+        var displayTempF = document.getElementById("display-temp-f")
 
+        function submitForm(params) {
+            var tempC = inputTempC.value
+            var tempF = convertTemp(tempC)
 
-
+            displayTempF.innerHTML = tempF
+        }
+        calcButton.addEventListener("click", submitForm, false)
 
     </script>
+    </div>
 </body>
 </html>
