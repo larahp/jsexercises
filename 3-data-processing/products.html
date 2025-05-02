@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Products</title>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-
+    <div class="container">
     <h1>Products</h1>
-    <a href="../index.html">Home</a>
+    <a href="../index.html">Home</a> <br> <br>
 
     <h2>Part 1</h2>
     <p>
@@ -38,7 +39,7 @@
 
     <script type="text/javascript">
 
-        var products = [
+var products = [
             {
                 "name": "Textbook",
                 "description": "It has all the answers.",
@@ -62,17 +63,53 @@
         console.log("---------------------")
         console.log("PART 1...")
 
+        // A
+        console.log(products.length)
 
+        // B
+        products.forEach(function(product){
+            console.log(product.name, product.price)
+        })
 
+        // C
+        var matchingProducts = products.filter(product => product.price < 50)
 
+        // D
+        console.log(matchingProducts.length)
 
 
         console.log("---------------------")
         console.log("PART 2...")
 
+        var container = document.getElementById("display-products")
 
+        products.forEach(function(product) {
+            var productDiv = document.createElement("div")
 
+            var nameP = document.createElement("p")
+            nameP.textContent = "Name: " + product.name
+            productDiv.appendChild(nameP)
+
+            var descP = document.createElement("p")
+            descP.textContent = "Description: " + product.description
+            productDiv.appendChild(descP)
+
+            var priceP = document.createElement("p")
+            priceP.textContent = "Price: $" + product.price.toFixed(2)
+            productDiv.appendChild(priceP)
+
+            var img = document.createElement("img")
+            img.src = product.imageURL
+            img.alt = product.name
+            productDiv.appendChild(img)
+
+            var hr = document.createElement("hr")
+            productDiv.appendChild(hr)
+
+            container.appendChild(productDiv)
+        })
 
     </script>
+    </div>
 </body>
 </html>
