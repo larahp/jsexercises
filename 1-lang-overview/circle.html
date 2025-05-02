@@ -66,22 +66,16 @@
         console.log("---------------------")
         console.log("PART 2...")
         var inputRadius = document.getElementById("input-radius")
-        var btn = document.getElementById("calculate")
+        var calcButton = document.getElementById("calculate")
         var displayArea = document.getElementById("display-area")
 
-        //console.log(inputRadius.value)
+        function submitForm(params) {
+            var radius = inputRadius.value
+            var area = calculateCircleArea(radius)
 
-        function submit() {
-            var r = inputRadius.value
-            var a = calculateCircleArea(r)
-            console.log("RADIUS:", r)
-            console.log("AREA:", a)
-
-            // updating the text of the display element:
-            displayArea.innerText = a
+            displayArea.innerHTML = area
         }
-
-        btn.addEventListener("click", submit, false)
+        calcButton.addEventListener("click", submitForm, false)
 
     </script>
     </div>
