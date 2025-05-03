@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Non-alcoholic Drinks (JSON)</title>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-
+    <div class="container">
     <h1>Non-alcoholic Drinks (JSON)</h1>
-    <a href="../index.html">Home</a>
+    <a href="../index.html">Home</a> <br> <br>
 
     <h2>Dataset Information</h2>
     <p>For this exercise, we will use data from the
@@ -64,27 +65,57 @@
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
     <script type="text/javascript">
 
-        var requestUrl = "TODO"
+var requestUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic`
 
-        d3.json(requestUrl).then(function(data){
-            console.log("DATA:", data)
+d3.json(requestUrl).then(function(data){
+    //console.log("DATA:", data)
 
+    console.log("---------------------")
+    console.log("PART 1...")
 
-            console.log("---------------------")
-            console.log("PART 1...")
+    console.log("DRINKS:", data.drinks.length)
 
+    data.drinks.forEach(drink => {
+        console.log(drink.idDrink, drink.strDrink)
+    })
 
+    //console.log("--------------------------")
+    //var drinkId = 13032
+    //console.log("DRINK ID:", drinkId)
+    //var requestUrl = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`
+    //d3.json(requestUrl).then(function(drinkData){
+    //    //console.log("DATA:", drinkData)
+    //    var drink = drinkData.drinks[0]
+    //    console.log(drink.idDrink, drink.strDrink, drink.strGlass)
+    //    console.log(drink.strInstructions)
+    //})
 
+    console.log("---------------------")
+    console.log("PART 2...")
 
+    var displayDrinksCount = document.getElementById("display-drinks-count")
+    var displayDrinks = document.getElementById("display-drinks")
 
-            console.log("---------------------")
-            console.log("PART 2...")
+    displayDrinksCount.innerText = data.drinks.length
 
+    data.drinks.forEach(drink => {
+        var div = document.createElement("div")
 
+        var p = document.createElement("p")
+        p.innerText = drink.strDrink
+        div.appendChild(p)
 
+        var img = document.createElement("img")
+        img.src = drink.strDrinkThumb
+        img.height = 100
+        div.appendChild(img)
 
-        })
+        displayDrinks.appendChild(div)
+    })
+
+})
 
     </script>
+    </div>
 </body>
 </html>
