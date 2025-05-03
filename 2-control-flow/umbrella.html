@@ -58,13 +58,13 @@
     <input type="checkbox" id="switch-raining" checked>
     <br>
 
-    <label>Owns Umbrella:</label>
+    <label>Owns Umbrella:</label>  
     <input type="checkbox" id="switch-umbrella" checked>
     <br>
 
     <button id="advise">Advise</button>
 
-    <br>
+    <br> <br>
     <label>Message:</label>
     <span id="display-message">TODO</span>
 
@@ -128,7 +128,7 @@ console.log("---------------------")
             var message = advise(isRaining, ownsUmbrella)
 
             displayMessage.innerHTML = message
-        }
+        } 
         adviseButton.addEventListener("click", submitForm, false)
 
     </script>
