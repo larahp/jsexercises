@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Stocks (CSV)</title>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-
+    <div class="container">
     <h1>Stocks (CSV)</h1>
-    <a href="../index.html">Home</a>
+    <a href="../index.html">Home</a> <br> <br>
 
     <h2>Dataset Information</h2>
     <p>For this exercise, we will use a handful of CSV files that have been uploaded to the Internet.
@@ -75,7 +76,7 @@
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
     <script type="text/javascript">
 
-        function formatUSD(price) {
+function formatUSD(price) {
             return `$${price.toFixed(2)}`
         }
 
@@ -83,6 +84,10 @@
             return `${(percentage * 100).toFixed(2)}%`
         }
 
+        //var symbol = prompt("Please enter a stock symbol  (one of: [AAPL, GOOGL, MSFT, NFLX, NVDA, SPOT])")
+        //if (symbol !== null) {
+        //    console.log("SYMBOL:", symbol);
+        //}
 
         var symbol = "NFLX" // one of: [AAPL, GOOGL, MSFT, NFLX, NVDA, SPOT]
         var filename = `daily_adjusted_${symbol}.csv`
@@ -94,6 +99,18 @@
             console.log("---------------------")
             console.log("PART 1...")
 
+            var earliest = data[data.length - 1]
+            var latest = data[0]
+
+            var earliestClose =  parseFloat(earliest.adjusted_close)
+            var latestClose =  parseFloat(latest.adjusted_close)
+
+            console.log("DAYS:", data.length)
+            console.log("... EARLIEST:", earliest.timestamp, formatUSD(earliestClose))
+            console.log("... LATEST:", latest.timestamp, formatUSD(latestClose))
+
+            var pctChange = (latestClose - earliestClose) / earliestClose
+            console.log("PERCENT CHANGE:", formatPct(pctChange))
 
 
 
@@ -101,15 +118,16 @@
             console.log("---------------------")
             console.log("PART 2...")
 
-
-
-
+            document.getElementById("display-symbol").textContent = symbol
+            document.getElementById("display-earliest").textContent = `${earliest.timestamp} (${formatUSD(earliestClose)})`
+            document.getElementById("display-latest").textContent = `${latest.timestamp} (${formatUSD(latestClose)})`
+            document.getElementById("display-pct-change").textContent = formatPct(pctChange)
 
 
             }).catch(function(error) {
                 console.error("ERROR:", error)
         })
-
     </script>
+    </div>
 </body>
 </html>
